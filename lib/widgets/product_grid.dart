@@ -18,15 +18,8 @@ class ProductGrid extends StatelessWidget {
 
     return Builder(
       builder: (context) {
-        // Each tab supplies its own CustomScrollView; the actual vertical
-        // motion is forwarded to the parent NestedScrollView via the
-        // overlap mechanism. A PageStorageKey is used so that when the user
-        // returns to a tab, its inner scroll offset is restored. This avoids
-        // jumping back to the top but does not break the "single owner" rule
-        // since the outer NestedScrollView still governs the physical
-        // scrolling.
         return CustomScrollView(
-          key: PageStorageKey(category), // Preserves scroll position per tab
+          key: PageStorageKey(category),
           slivers: [
             SliverOverlapInjector(
               handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),

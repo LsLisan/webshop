@@ -15,8 +15,6 @@ class WebShopScreen extends StatefulWidget {
 
 class _WebShopScreenState extends State<WebShopScreen>
     with SingleTickerProviderStateMixin {
-  // controller shared between TabBar and TabBarView; horizontal swipe
-  // gesture ownership lives here.
   late TabController _tabController;
 
   bool _isLoading = true;
@@ -50,18 +48,12 @@ class _WebShopScreenState extends State<WebShopScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Pull-to-refresh wraps the whole scrollable. Using a liquid-style
-      // widget provides a simple animation when the user pulls down.
       body: LiquidPullToRefresh(
         onRefresh: _fetchData,
         backgroundColor: Colors.white,
         color: Colors.orange,
         springAnimationDurationInMilliseconds: 500,
         child: NestedScrollView(
-          // The NestedScrollView is the single vertical scroll owner. All
-          // slivers emitted by headerSliverBuilder participate in that
-          // vertical scrolling. Inner content (in each tab) is interleaved
-          // via SliverOverlapInjector.
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
               // Ownership: Outer Scroll
@@ -74,10 +66,7 @@ class _WebShopScreenState extends State<WebShopScreen>
               ),
             ];
           },
-          // Ownership: Horizontal Navigation
-          // TabBarView listens for horizontal drag gestures only. Its
-          // internal PageView does **not** capture vertical drags, so the
-          // vertical scroll remains under the NestedScrollView's control.
+
           body: TabBarView(
             controller: _tabController,
             children: [
